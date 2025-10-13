@@ -1,796 +1,182 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>destroy.wtf</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
-
-    <!-- === CSS === -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raw Link Generator</title>
     <style>
-        :root {
-            --bg-primary: #000000;
-            --bg-secondary: #333333;
-            --bg-tertiary: #666666;
-            --accent-primary: #ffffff;
-            --accent-secondary: #cccccc;
-            --text-primary: #ffffff;
-            --text-secondary: #aaaaaa;
-            --card-bg: rgba(20, 20, 20, 0.75);
-            --card-border: rgba(255, 255, 255, 0.55);
-            --glow-color: rgba(255, 255, 255, 0.8);
-            --shine-color: rgba(255, 255, 255, 0.13);
-            --mouse-x: 50%;
-            --mouse-y: 50%;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { cursor: none; }
-        html, body {
-            height: 100%; width: 100%; overflow-x: hidden;
-            font-family: 'Space Grotesk', sans-serif;
-            background: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary), var(--bg-tertiary), var(--bg-secondary));
-            background-size: 400% 400%; animation: gradientBG 25s ease infinite;
-            color: var(--text-primary); position: relative;
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
         }
-        @keyframes gradientBG {
-           0%{background-position:0% 50%}
-           50%{background-position:100% 50%}
-           100%{background-position:0% 50%}
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            text-align: center;
         }
-        #cursor-dot {
-            width: 8px; height: 8px; background-color: var(--accent-secondary);
-            border-radius: 50%; position: fixed; top: 0; left: 0;
-            transform: translate(-50%, -50%); pointer-events: none;
-            z-index: 10000; transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease, transform 0.1s linear;
-            mix-blend-mode: difference;
+        
+        h1 {
+            margin-bottom: 10px;
+            font-size: 2.2rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
-        #interactive-background-layer {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: 1;
-            background: radial-gradient(circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.08) 0%, transparent 30%);
+        
+        .subtitle {
+            margin-bottom: 30px;
+            opacity: 0.8;
         }
-        #threejs-canvas {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 2; display: block;
+        
+        .link-display {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 25px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
-        .parallax-container {
-            position: relative;
-            z-index: 5;
-            height: 100vh;
+        
+        .link-text {
+            flex: 1;
             overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-family: 'Courier New', monospace;
+            font-size: 18px;
+            color: #fdbb2d;
         }
-        .parallax-layer {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            will-change: transform;
+        
+        .copy-btn {
+            background: #fdbb2d;
+            color: #1a2a6c;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            margin-left: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
         }
-        .parallax-layer-1 {
-            z-index: 3;
-            transform: translateZ(-300px) scale(4);
+        
+        .copy-btn:hover {
+            background: #ffcc44;
+            transform: translateY(-2px);
         }
-        .parallax-layer-2 {
-            z-index: 4;
-            transform: translateZ(-150px) scale(2.5);
+        
+        .info-box {
+            background: rgba(253, 187, 45, 0.2);
+            border-left: 4px solid #fdbb2d;
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin-top: 20px;
+            text-align: left;
         }
-        .parallax-layer-3 {
-            z-index: 5;
-            transform: translateZ(0);
+        
+        .info-box h3 {
+            margin-bottom: 10px;
         }
-        .profile-container {
-            position: relative; z-index: 10;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            height: 100vh; text-align: center; perspective: 1800px;
-            opacity: 0; transform: scale(0.9) translateY(30px);
-            transition: opacity 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        
+        .info-box p {
+            margin-bottom: 8px;
         }
-        .profile-container.show { opacity: 1; transform: scale(1) translateY(0); }
-        .profile-card {
-             background: var(--card-bg); border-radius: 25px;
-             backdrop-filter: blur(22px); border: 1px solid var(--card-border);
-             padding: 2.5rem 3rem; width: 90%; max-width: 580px;
-             transform-style: preserve-3d;
-             transform: rotateX(10deg) rotateY(-12deg) scale(1);
-             transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.4s ease;
-             box-shadow: 0 30px 60px rgba(0,0,0,0.5);
-             position: relative; overflow: hidden;
-             animation: breathe 8s ease-in-out infinite alternate;
-             will-change: transform, box-shadow;
+        
+        .content-preview {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: left;
         }
-        @keyframes breathe {
-            from { transform: rotateX(8deg) rotateY(-10deg) scale(1); box-shadow: 0 25px 50px rgba(0,0,0,0.45); }
-            to { transform: rotateX(12deg) rotateY(-14deg) scale(1.02); box-shadow: 0 35px 70px rgba(0,0,0,0.55); }
+        
+        .content-preview h3 {
+            margin-bottom: 10px;
+            color: #fdbb2d;
         }
-        .profile-card::before {
-            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-            background: linear-gradient(45deg, transparent, var(--shine-color), transparent);
-            transform: rotate(35deg); pointer-events: none; z-index: 1;
-            opacity: 0; transition: opacity 0.4s ease;
+        
+        .code {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            border-left: 3px solid #fdbb2d;
         }
-        .profile-card:hover::before { opacity: 1; }
-        .profile-card:hover {
-             box-shadow: 0 45px 90px rgba(0,0,0,0.75);
-             transition: transform 0.08s linear, box-shadow 0.4s ease;
-             animation-play-state: paused;
-        }
-        .profile-pic-container {
-            width: 160px; height: 160px; margin: 0 auto 1.8rem auto; cursor: none;
-            position: relative; transform-style: preserve-3d; z-index: 2;
-            transform: translateZ(60px); will-change: transform;
-        }
-        .profile-pic {
-            width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
-            border: 6px solid transparent;
-            background: linear-gradient(70deg, var(--accent-primary), var(--accent-secondary));
-            background-clip: padding-box; padding: 6px;
-            box-shadow: 0 18px 36px rgba(0,0,0,0.4); display: block;
-            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.3s ease;
-            position: absolute; top: 0; left: 0; will-change: transform;
-        }
-        .particle-burst {
-             position: absolute; width: 8px; height: 8px;
-             background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary), var(--text-primary));
-             border-radius: 50%; top: 50%; left: 50%; pointer-events: none;
-             opacity: 0.8; animation: burst 0.7s ease-out forwards; z-index: 5;
-             will-change: transform, opacity;
-        }
-        @keyframes burst {
-            0% { transform: translate(-50%, -50%) scale(0.5); opacity: 1; }
-            100% { transform: translate(var(--tx, 0), var(--ty, 0)) scale(0); opacity: 0; }
-        }
-        .username {
-            font-family: 'Orbitron', sans-serif; font-size: 3rem; font-weight: 700; margin-bottom: 0.8rem;
-            cursor: none; position: relative; display: inline-block; z-index: 2; transform: translateZ(60px);
-            perspective: 500px; will-change: transform;
-        }
-        .username .char {
-            display: inline-block;
-            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), text-shadow 0.3s ease;
-            background: linear-gradient(70deg, var(--accent-primary), var(--accent-secondary));
-            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 10px var(--glow-color); will-change: transform; transform: translateY(0) rotateX(0);
-        }
-        .username.wave-active .char { animation: wave-char 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
-        @keyframes wave-char {
-             0% { transform: translateY(0) rotateX(0); -webkit-text-fill-color: transparent; }
-             40% { transform: translateY(-15px) rotateX(-35deg) scale(1.25); -webkit-text-fill-color: #fff; text-shadow: 0 10px 20px var(--glow-color); }
-             70% { transform: translateY(3px) rotateX(5deg) scale(0.95); -webkit-text-fill-color: transparent; }
-             100% { transform: translateY(0) rotateX(0); -webkit-text-fill-color: transparent; }
-        }
-        .typing-text { position: relative; display: inline-block; }
-        .typing-text.typing::after {
-            content: '|'; font-weight: 100; position: absolute; right: -0.2em;
-            color: var(--accent-secondary); animation: typing-cursor 0.7s infinite;
-        }
-        @keyframes typing-cursor { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-        .role {
-            font-size: 1.6rem; margin-bottom: 1.2rem; color: var(--text-secondary);
-            z-index: 2; transform: translateZ(60px); will-change: transform;
-        }
-        .gradient-text {
-            background: linear-gradient(70deg, var(--accent-primary), var(--accent-secondary));
-            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; font-weight: bold;
-        }
-        .role-link {
-            color: var(--text-primary); text-decoration: none;
-            transition: color 0.3s ease, transform 0.3s ease;
-            position: relative; display: inline-block; font-weight: bold; margin-left: 6px; cursor: none;
-        }
-        .role-link::after {
-            content: ''; position: absolute; width: 0; height: 2px; bottom: -6px; left: 50%;
-            transform: translateX(-50%); background: linear-gradient(70deg, var(--accent-primary), var(--accent-secondary));
-            transition: width 0.4s ease;
-        }
-        .role-link:hover { color: var(--accent-secondary); transform: translateY(-3px); }
-        .role-link:hover::after { width: 100%; }
-        .quote {
-            font-style: italic; color: var(--text-secondary); margin: 1.8rem 0;
-            opacity: 0.9; font-size: 1rem; max-width: 85%; margin-left: auto; margin-right: auto;
-            z-index: 2; transform: translateZ(60px); will-change: transform;
-        }
-        .social-links {
-            display: flex; justify-content: center; gap: 2.5rem; margin-top: 2.5rem;
-            z-index: 2; transform: translateZ(60px); will-change: transform;
-        }
-        .social-icon {
-            color: var(--text-secondary); font-size: 2rem;
-            transition: color 0.3s ease, opacity 0.3s ease, transform 0.15s linear;
-            opacity: 0.8; will-change: transform; cursor: none;
-        }
-        .social-icon:hover { color: var(--text-primary); opacity: 1; }
-        .intro-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary));
-            display: flex; align-items: center; justify-content: center; z-index: 9999;
-            opacity: 1; transition: opacity 1.5s ease, transform 1.5s ease;
-        }
-        .intro-overlay.hide { opacity: 0; transform: scale(1.1); pointer-events: none; }
-        .intro-overlay .typing-text {
-            font-family: 'Orbitron', sans-serif; font-size: clamp(3rem, 10vw, 6rem); font-weight: 700;
-            background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));
-            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
-        }
-        .parallax-shapes {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-        }
-        .parallax-shape {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.05);
-            filter: blur(5px);
-        }
-        .parallax-shape-1 {
-            width: 300px;
-            height: 300px;
-            top: 10%;
-            left: 5%;
-        }
-        .parallax-shape-2 {
-            width: 200px;
-            height: 200px;
-            bottom: 15%;
-            right: 10%;
-        }
-        .parallax-shape-3 {
-            width: 150px;
-            height: 150px;
-            top: 50%;
-            left: 80%;
-        }
-        @media (max-width: 640px) {
-            .profile-card { padding: 2rem 1.5rem; animation: breathe-mobile 8s ease-in-out infinite alternate; }
-            .profile-pic-container { width: 120px; height: 120px; margin-bottom: 1.5rem; }
-            .username { font-size: 2.2rem; }
-            .role { font-size: 1.3rem; }
-            .quote { font-size: 0.9rem; }
-            .social-links { gap: 2rem; }
-            .social-icon { font-size: 1.8rem; }
-            @keyframes breathe-mobile {
-               from { transform: rotateX(5deg) rotateY(-5deg) scale(1); box-shadow: 0 15px 30px rgba(0,0,0,0.4); }
-               to { transform: rotateX(7deg) rotateY(-7deg) scale(1.01); box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+        
+        @media (max-width: 600px) {
+            .link-display {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .copy-btn {
+                margin-left: 0;
+                width: 100%;
             }
         }
     </style>
-    <!-- === ENDE CSS === -->
 </head>
 <body>
-    <!-- Elemente für Effekte -->
-    <div id="cursor-dot"></div>
-    <div id="interactive-background-layer"></div>
-    <canvas id="threejs-canvas"></canvas>
-
-    <!-- Parallax Container -->
-    <div class="parallax-container">
-        <div class="parallax-layer parallax-layer-1">
-            <div class="parallax-shapes">
-                <div class="parallax-shape parallax-shape-1"></div>
-                <div class="parallax-shape parallax-shape-2"></div>
-                <div class="parallax-shape parallax-shape-3"></div>
-            </div>
+    <div class="container">
+        <h1>Raw Link Generator</h1>
+        <p class="subtitle">Simple raw link containing print("Hi")</p>
+        
+        <div class="link-display">
+            <span class="link-text" id="linkText">https://example.com/raw/print_hi.txt</span>
+            <button class="copy-btn" id="copyBtn">Copy Link</button>
         </div>
-        <div class="parallax-layer parallax-layer-2"></div>
-        <div class="parallax-layer parallax-layer-3">
-            <!-- Hauptinhalt -->
-            <div class="profile-container" id="profile-container">
-                <div class="profile-card" id="profile-card">
-                    <div class="profile-pic-container" id="profile-pic-container">
-                         <img src="https://cdn.discordapp.com/attachments/1270486233428136041/1427335549550727388/sdadwawdaw.png?ex=68ee7d51&is=68ed2bd1&hm=a67d84633df3a585915cf350529d275b7c0b77f309c3eb5b30d016dd1ea7e96d&" class="profile-pic">
-                    </div>
-                    <div class="username" id="username-container" onclick="window.open('#', '_blank')" style="cursor: none;">
-                        <span class="typing-text" id="username-typing"></span>
-                    </div>
-                    <div class="role">
-                        <span id="owner-text" class="gradient-text typing-text"></span>
-                        <!-- MODIFIED: Added target="_blank" to make it open in a new tab like the Discord link -->
-                        <a href="https://discord.gg/TtpZv7mV7z" target="_blank" class="role-link typing-text" id="ak-admin-link"></a>
-                    </div>
-                    <div class="quote typing-text" id="quote-typing"></div>
-<div class="social-links" id="social-links">
-    <a href="https://discord.gg/TtpZv7mV7z" target="_blank" class="social-icon" aria-label="Discord">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M19.27 5.33C17.94 4.71 16.5 4.26 15 4a.09.09 0 0 0-.07.03c-.18.33-.39.76-.53 1.09a16.09 16.09 0 0 0-4.8 0c-.14-.34-.35-.76-.54-1.09c-.01-.02-.04-.03-.07-.03c-1.5.26-2.93.71-4.27 1.33c-.01 0-.02.01-.03.02c-2.72 4.07-3.47 8.03-3.1 11.95c0 .02.01.04.03.05c1.8 1.32 3.53 2.12 5.24 2.65c.03.01.06 0 .07-.02c.4-.55.76-1.13 1.07-1.74c.02-.04 0-.08-.04-.09c-.57-.22-1.11-.48-1.64-.78c-.04-.02-.04-.08-.01-.11c.11-.08.22-.17.33-.25c.02-.02.05-.02.07-.01c3.44 1.57 7.15 1.57 10.55 0c.02-.01.05-.01.07.01c.11.09.22.17.33.25c.04.03.04.09-.01.11c-.52.31-1.07.56-1.64.78c-.04.01-.05.06-.04.09c.32.61.68 1.19 1.07 1.74c.03.01.06.02.09.01c1.72-.53 3.45-1.33 5.25-2.65c.02-.01.03-.03.03-.05c.44-4.53-.73-8.46-3.1-11.95c-.01-.01-.02-.02-.04-.02zM8.52 14.91c-1.03 0-1.89-.95-1.89-2.12s.84-2.12 1.89-2.12c1.06 0 1.9.96 1.89 2.12c0 1.17-.84 2.12-1.89 2.12zm6.97 0c-1.03 0-1.89-.95-1.89-2.12s.84-2.12 1.89-2.12c1.06 0 1.9.96 1.89 2.12c0 1.17-.83 2.12-1.89 2.12z"/>
-                      </svg>
-                     </a>
-                  </div>
-                </div>
-            </div>
+        
+        <div class="content-preview">
+            <h3>Content Preview:</h3>
+            <div class="code">print("Hi")</div>
+        </div>
+        
+        <div class="info-box">
+            <h3>About This Raw Link</h3>
+            <p>• This link points to a raw text file containing: print("Hi")</p>
+            <p>• Anyone with this link can access the content directly</p>
+            <p>• Use the copy button to share this link with others</p>
         </div>
     </div>
 
-    <!-- Intro Overlay -->
-    <div class="intro-overlay">
-        <div class="typing-text typing" id="intro-typing"></div>
-    </div>
-
-    <!-- Audio Element -->
-    <audio id="background-music" loop>
-        <source src="chill-galaxy-melody.mp3" type="audio/mpeg">
-        Dein Browser unterstützt das Audio-Element nicht.
-    </audio>
-
-    <!-- Libraries -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-
-    <!-- Haupt-JavaScript -->
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // --- Elemente auswählen ---
-            const cursorDot = document.getElementById('cursor-dot');
-            const interactiveBgLayer = document.getElementById('interactive-background-layer');
-            const introOverlay = document.querySelector('.intro-overlay');
-            const introTypingEl = document.getElementById('intro-typing');
-            const profileContainer = document.getElementById('profile-container');
-            const profileCard = document.getElementById('profile-card');
-            const profilePicContainer = document.getElementById('profile-pic-container');
-            const profilePic = document.querySelector('.profile-pic');
-            const usernameContainer = document.getElementById('username-container');
-            const usernameTypingEl = document.getElementById('username-typing');
-            const ownerTextEl = document.getElementById('owner-text');
-            const akAdminLinkEl = document.getElementById('ak-admin-link');
-            const quoteEl = document.getElementById('quote-typing');
-            const socialLinksContainer = document.getElementById('social-links');
-            const socialIcons = socialLinksContainer ? socialLinksContainer.querySelectorAll('.social-icon') : [];
-            const threeJsCanvas = document.getElementById('threejs-canvas');
-            const audio = document.getElementById('background-music');
-            const parallaxLayers = document.querySelectorAll('.parallax-layer');
-            const parallaxShapes = document.querySelectorAll('.parallax-shape');
-
-            // --- Globale Variablen ---
-            let mouse = new THREE.Vector2(-10, -10);
-            let targetMouse = new THREE.Vector2(-10,-10);
-            const parallaxFactorCard = 0.08;
-            const parallaxFactorIcons = 0.15;
-            let threeJsInitialized = false;
-            let animationFrameIdMain = null;
-            let animationFrameIdSocial = null;
-            let isWaveAnimationRunning = false;
-
-            // --- Parallax Scrolling ---
-            function handleParallax() {
-                const scrollY = window.scrollY;
-                const speed1 = 0.5;
-                const speed2 = 0.3;
-                const speed3 = 0.1;
-                
-                if (parallaxLayers[0]) parallaxLayers[0].style.transform = `translateY(${scrollY * speed1}px)`;
-                if (parallaxLayers[1]) parallaxLayers[1].style.transform = `translateY(${scrollY * speed2}px)`;
-                if (parallaxLayers[2]) parallaxLayers[2].style.transform = `translateY(${scrollY * speed3}px)`;
-                
-                // Parallax für die Formen
-                parallaxShapes.forEach((shape, index) => {
-                    const speed = 0.1 + (index * 0.05);
-                    shape.style.transform = `translateY(${scrollY * speed}px) rotate(${scrollY * 0.01}deg)`;
+        document.addEventListener('DOMContentLoaded', function() {
+            const copyBtn = document.getElementById('copyBtn');
+            const linkText = document.getElementById('linkText');
+            
+            // Copy link to clipboard
+            copyBtn.addEventListener('click', function() {
+                navigator.clipboard.writeText(linkText.textContent).then(function() {
+                    // Visual feedback
+                    const originalText = copyBtn.textContent;
+                    copyBtn.textContent = 'Copied!';
+                    setTimeout(() => {
+                        copyBtn.textContent = originalText;
+                    }, 2000);
+                }).catch(function(err) {
+                    console.error('Failed to copy: ', err);
+                    alert('Failed to copy link to clipboard.');
                 });
-            }
-
-            // --- Audio abspielen ---
-            if (audio) {
-                audio.volume = 0.2;
-                audio.play().catch(error => {
-                    console.log('Musik Autoplay blockiert, Nutzer muss interagieren:', error.name, error.message);
-                    const startAudioOnInteraction = () => {
-                         audio.play().then(() => {
-                             console.log("Musik spielt nach Interaktion.");
-                             document.removeEventListener('click', startAudioOnInteraction);
-                             document.removeEventListener('keydown', startAudioOnInteraction);
-                             document.removeEventListener('touchstart', startAudioOnInteraction);
-                         }).catch(err => console.error("Fehler beim Starten der Musik nach Interaktion:", err));
-                    };
-                    document.addEventListener('click', startAudioOnInteraction, { once: true });
-                    document.addEventListener('keydown', startAudioOnInteraction, { once: true });
-                    document.addEventListener('touchstart', startAudioOnInteraction, { once: true });
-                });
-            }
-
-            // --- Custom Cursor ---
-            if (cursorDot) {
-                window.addEventListener('mousemove', (e) => {
-                     cursorDot.style.left = `${e.clientX}px`;
-                     cursorDot.style.top = `${e.clientY}px`;
-                     targetMouse.x = (e.clientX / window.innerWidth) * 2 - 1;
-                     targetMouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
-                }, { passive: true });
-                 document.querySelectorAll('a, button, [onclick], .profile-pic-container').forEach(el => {
-                     el.addEventListener('mouseenter', () => cursorDot.style.transform = 'translate(-50%, -50%) scale(2.5)');
-                     el.addEventListener('mouseleave', () => cursorDot.style.transform = 'translate(-50%, -50%) scale(1)');
-                 });
-            } else { document.documentElement.style.cursor = 'auto'; }
-
-            // --- Mauspositions-Listener für Aura ---
-             window.addEventListener('mousemove', (e) => {
-                 const mouseXPerc = (e.clientX / window.innerWidth) * 100;
-                 const mouseYPerc = (e.clientY / window.innerHeight) * 100;
-                 document.documentElement.style.setProperty('--mouse-x', `${mouseXPerc}%`);
-                 document.documentElement.style.setProperty('--mouse-y', `${mouseYPerc}%`);
-            }, { passive: true });
-
-            // --- Text Tipp-Animation Funktion ---
-            function typeText(element, text, delay = 80, callback = null) {
-                 if (!element) { console.error("Typing element not found for text:", text); if(callback) callback(new Error("Element not found")); return; }
-                 let currentContent = ''; element.textContent = ''; element.classList.add('typing');
-                 let index = 0; let typingInterval = null;
-                 function type() {
-                     try {
-                         if (index < text.length) {
-                             currentContent += text.charAt(index); element.textContent = currentContent;
-                             index++; typingInterval = setTimeout(type, delay + Math.random() * 30 - 15);
-                         } else { element.classList.remove('typing'); if (callback) callback(); }
-                     } catch (error) {
-                          console.error("Error during typing:", error, "on element:", element); element.classList.remove('typing'); if (callback) callback(error);
-                     }
-                 }
-                 if (typingInterval) clearTimeout(typingInterval); typingInterval = setTimeout(type, delay);
-             }
-
-            // --- Benutzername Interaktivität ---
-            function setupInteractiveUsername(usernameText) {
-                 if (!usernameTypingEl || !usernameContainer) { console.warn("Username elements for interaction not found."); return; }
-                 usernameTypingEl.innerHTML = usernameText.split('').map(char => `<span class="char">${char === ' ' ? ' ' : char}</span>`).join('');
-                 const chars = usernameTypingEl.querySelectorAll('.char');
-                 usernameContainer.addEventListener('mouseenter', () => {
-                     if (isWaveAnimationRunning) return; isWaveAnimationRunning = true; usernameContainer.classList.add('wave-active');
-                     chars.forEach((char, index) => { char.style.animationDelay = `${index * 0.05}s`; });
-                     const totalDuration = 700 + (chars.length - 1) * 50;
-                     setTimeout(() => { usernameContainer.classList.remove('wave-active'); chars.forEach(char => char.style.animationDelay = ''); isWaveAnimationRunning = false; }, totalDuration);
-                 });
-             }
-
-            // --- Intro Animation ---
-            function startIntroAnimation() {
-                 if (!introTypingEl || !introOverlay || !profileContainer || !usernameTypingEl || !ownerTextEl || !akAdminLinkEl || !quoteEl) {
-                     console.error("Ein oder mehrere UI-Elemente für die Intro-Animation fehlen! Stoppe Animation.");
-                     if (introOverlay) introOverlay.classList.add('hide'); if (profileContainer) profileContainer.classList.add('show'); return;
-                 }
-                 const introText = 'Mev'; console.log("Starte Intro Tipp-Animation...");
-                 typeText(introTypingEl, introText, 150, (introError) => {
-                     console.log("Intro Tippen beendet.", introError || "Erfolgreich.");
-                     setTimeout(() => {
-                         introOverlay.classList.add('hide'); profileContainer.classList.add('show'); console.log("Intro ausgeblendet, Profil eingeblendet.");
-                         if (!introError) {
-                            console.log("Starte Profil Tipp-Sequenz...");
-                            typeText(usernameTypingEl, 'Mev', 100, (userError) => {
-                                if (userError) console.error("Fehler beim Tippen des Usernamens:", userError); else setupInteractiveUsername('Mev');
-                                setTimeout(() => {
-                                    typeText(ownerTextEl, 'Owner of ', 80, (ownerError) => {
-                                        if (ownerError) console.error("Fehler beim Tippen von 'Owner of':", ownerError);
-                                        setTimeout(() => {
-                                            typeText(akAdminLinkEl, 'destroy.wtf', 80, (linkError) => {
-                                                 if (linkError) console.error("Fehler beim Tippen von 'destroy.wtf':", linkError);
-                                                 setTimeout(() => {
-                                                     typeText(quoteEl, 'Codes Lua!', 50, (quoteError) => {
-                                                         if(quoteError) console.error("Fehler beim Tippen des Zitats:", quoteError); console.log("Profil Tipp-Sequenz beendet.");
-                                                     });
-                                                 }, 300); });
-                                        }, 150); });
-                                }, 500); });
-                         } else {
-                              console.warn("Überspringe Profil-Tippen wegen Fehler im Intro-Tippen.");
-                              if(usernameTypingEl) usernameTypingEl.textContent = 'Mev'; setupInteractiveUsername('Mev');
-                              if(ownerTextEl) ownerTextEl.textContent = 'Owner of '; if(akAdminLinkEl) akAdminLinkEl.textContent = 'destroy.wtf';
-                              if(quoteEl) quoteEl.textContent = 'Codes Lua!';
-                         }
-                     }, 700); });
-            }
-
-            // --- Partikel-Burst ---
-            function createParticleBurst(event) {
-                if (!profilePicContainer) return; const rect = profilePicContainer.getBoundingClientRect();
-                const clickX = event.clientX - rect.left - rect.width / 2; const clickY = event.clientY - rect.top - rect.height / 2;
-                const angleOffset = Math.atan2(clickY, clickX);
-                for (let i = 0; i < 25; i++) {
-                    const particle = document.createElement('div'); particle.classList.add('particle-burst');
-                    const angle = angleOffset + (Math.random() - 0.5) * Math.PI * 0.8; const distance = 50 + Math.random() * 80;
-                    const tx = `${Math.cos(angle) * distance}px`; const ty = `${Math.sin(angle) * distance}px`;
-                    particle.style.setProperty('--tx', tx); particle.style.setProperty('--ty', ty);
-                    particle.style.animationDuration = `${0.5 + Math.random() * 0.4}s`;
-                    profilePicContainer.appendChild(particle); particle.addEventListener('animationend', () => particle.remove(), { once: true });
-                }
-            }
-            if (profilePicContainer) { profilePicContainer.addEventListener('click', createParticleBurst); }
-
-            // --- Interaktive 3D-Karte ---
-            if (profileCard) {
-                 profileCard.addEventListener('mousemove', (e) => {
-                     const rect = profileCard.getBoundingClientRect(); const x = e.clientX - rect.left; const y = e.clientY - rect.top;
-                     const centerX = rect.width / 2; const centerY = rect.height / 2;
-                     const rotateX = (y - centerY) / centerY * -12; const rotateY = (x - centerX) / centerX * 12;
-                     profileCard.style.transform = `perspective(1800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.03)`;
-                 }, { passive: true });
-                 profileCard.addEventListener('mouseleave', () => {
-                     profileCard.style.transition = 'transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.4s ease'; profileCard.style.transform = '';
-                     setTimeout(() => { profileCard.style.transition = ''; }, 600);
-                 });
-             }
-
-            // --- Reaktive Social Icons ---
-            function updateSocialIcons() {
-                 if (!socialIcons || socialIcons.length === 0 || !threeJsInitialized) {
-                    if (animationFrameIdSocial) cancelAnimationFrame(animationFrameIdSocial); animationFrameIdSocial = null; return;
-                 }
-                 const lerpedMouseX = mouse.x; const lerpedMouseY = mouse.y;
-                 const mouseOffsetX = (lerpedMouseX / 2) * window.innerWidth / 4; const mouseOffsetY = (lerpedMouseY / 2) * window.innerHeight / 4;
-                 socialIcons.forEach(icon => {
-                     const moveX = -mouseOffsetX * parallaxFactorIcons; const moveY = -mouseOffsetY * parallaxFactorIcons;
-                     icon.style.transform = `translate(${moveX}px, ${moveY}px)`;
-                 });
-                 animationFrameIdSocial = requestAnimationFrame(updateSocialIcons);
-            }
-
-            // ===============================================================
-            // ===== THREE.JS SETUP - MODIFIZIERT FÜR 3D EFFEKTE ===========
-            // ===============================================================
-            let scene, camera, renderer, particles, particleGeometry, particleMaterial;
-            let particleVelocities = [];
-            let particleColors = [];
-            let particleData = [];
-            const PARTICLE_COUNT = 2500;
-            const particleInteractionRadiusSq = 1.8 * 1.8;
-            const particleRepulsionForce = 0.0018;
-            const particleDamping = 0.96;
-            const particleBaseSpeed = 0.00005;
-            const spread = 22;
-
-            let shootingStarInterval = 4;
-            let lastShootingStarTime = 0;
-            let shootingStarDuration = 0.6;
-            let shootingStarSpeedBoost = 0.8;
-            let activeShootingStars = {};
-
-            function initThreeJS() {
-                console.log("Initialisiere Three.js (mit 3D Effekten)...");
-                if (!threeJsCanvas) { console.error("Three.js Canvas Element nicht gefunden!"); return false; }
-
-                try {
-                    scene = new THREE.Scene();
-                    camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, 0.1, 1000);
-                    camera.position.z = 8;
-
-                    const context = threeJsCanvas.getContext('webgl') || threeJsCanvas.getContext('experimental-webgl');
-                    if (!context) {
-                       console.error("WebGL wird nicht unterstützt oder ist deaktiviert.");
-                       threeJsCanvas.style.display = 'none'; return false;
-                    }
-
-                    renderer = new THREE.WebGLRenderer({ canvas: threeJsCanvas, context: context, alpha: true, antialias: true });
-                    renderer.setSize(window.innerWidth, window.innerHeight);
-                    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-                    renderer.setClearAlpha(0);
-
-                    particleGeometry = new THREE.BufferGeometry();
-                    const positions = new Float32Array(PARTICLE_COUNT * 3);
-                    const colors = new Float32Array(PARTICLE_COUNT * 3);
-                    particleVelocities = [];
-                    particleData = [];
-
-                    const baseColor = new THREE.Color(0xaaaaaa); // Basis-Farbe (Grau)
-
-                    for (let i = 0; i < PARTICLE_COUNT; i++) {
-                        const i3 = i * 3;
-                        positions[i3] = (Math.random() - 0.5) * spread;
-                        positions[i3 + 1] = (Math.random() - 0.5) * spread;
-                        positions[i3 + 2] = (Math.random() - 0.5) * spread;
-
-                        particleVelocities.push(new THREE.Vector3(
-                            (Math.random() - 0.5) * particleBaseSpeed * 10,
-                            (Math.random() - 0.5) * particleBaseSpeed * 10,
-                            (Math.random() - 0.5) * particleBaseSpeed * 10
-                        ));
-
-                        const particleColor = baseColor.clone();
-                        particleColor.offsetHSL(
-                            0,  // Keine Farbtonänderung (monochrom)
-                            0,  // Keine Sättigungsänderung
-                            (Math.random() - 0.5) * 0.3   // Nur Helligkeit variieren
-                         );
-                        colors[i3] = particleColor.r;
-                        colors[i3 + 1] = particleColor.g;
-                        colors[i3 + 2] = particleColor.b;
-
-                        particleData.push({
-                            phase: Math.random() * Math.PI * 2,
-                            speed: (Math.random() * 0.5 + 0.2) * 0.5,
-                            radius: Math.random() * 0.03 + 0.01
-                        });
-                    }
-
-                    particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-                    particleGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-
-                    particleMaterial = new THREE.PointsMaterial({
-                        size: 0.045,
-                        vertexColors: true,
-                        sizeAttenuation: true,
-                        transparent: true,
-                        opacity: 0.8,
-                        map: createCircleTexture(),
-                        blending: THREE.AdditiveBlending
-                    });
-
-                    particles = new THREE.Points(particleGeometry, particleMaterial);
-                    scene.add(particles);
-
-                    console.log("Three.js Szene erfolgreich erstellt (mit Vertex Colors & Partikeldaten).");
-
-                    window.addEventListener('resize', onWindowResize, false);
-                    threeJsInitialized = true;
-                    return true;
-
-                } catch (error) {
-                    console.error("Schwerer Fehler bei der Three.js Initialisierung:", error);
-                    if (threeJsCanvas) threeJsCanvas.style.display = 'none';
-                    threeJsInitialized = false;
-                    scene = undefined; camera = undefined; renderer = undefined; particles = undefined; particleGeometry = undefined;
-                    return false;
-                }
-            }
-
-            function createCircleTexture() {
-                const canvas = document.createElement('canvas'); canvas.width = 32; canvas.height = 32;
-                const context = canvas.getContext('2d'); if (!context) return null;
-                context.beginPath(); context.arc(16, 16, 15, 0, Math.PI * 2);
-                context.fillStyle = 'white'; context.fill();
-                return new THREE.CanvasTexture(canvas);
-            }
-
-            function onWindowResize() {
-                if (!threeJsInitialized || !camera || !renderer) return;
-                camera.aspect = window.innerWidth / window.innerHeight; camera.updateProjectionMatrix();
-                renderer.setSize(window.innerWidth, window.innerHeight); renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-                console.log("Three.js Größe angepasst.");
-            }
-
-            const clock = new THREE.Clock();
-            const raycaster = new THREE.Raycaster();
-            const plane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
-            const mouseWorldPos = new THREE.Vector3();
-            const tempParticlePos = new THREE.Vector3();
-
-            function animateThreeJS() {
-                if (!threeJsInitialized || !scene || !camera || !renderer || !particles || !particleGeometry || !particleGeometry.attributes || !particleGeometry.attributes.position || !clock || !particleVelocities || !particleData) {
-                     console.warn("Three.js Animations-Loop gestoppt: Eine Kernkomponente fehlt.");
-                     if (animationFrameIdMain) { cancelAnimationFrame(animationFrameIdMain); animationFrameIdMain = null; } return;
-                }
-
-                animationFrameIdMain = requestAnimationFrame(animateThreeJS);
-                const delta = clock.getDelta();
-                const elapsedTime = clock.getElapsedTime();
-
-                try {
-                    mouse.lerp(targetMouse, 0.06);
-
-                    const targetCameraX = mouse.x * 1.0;
-                    const targetCameraY = mouse.y * 1.0;
-                    camera.position.lerp(new THREE.Vector3(targetCameraX, targetCameraY, camera.position.z), 0.035);
-                    if(scene.position) { camera.lookAt(scene.position); }
-
-                    plane.constant = -camera.position.z + 1;
-
-                    raycaster.setFromCamera(mouse, camera);
-                    if (!raycaster.ray.intersectPlane(plane, mouseWorldPos)) {
-                        mouseWorldPos.set(mouse.x * (spread/1.5), mouse.y * (spread/1.5), 0);
-                    }
-
-                    if (elapsedTime - lastShootingStarTime > shootingStarInterval * (0.5 + Math.random())) {
-                        const starCount = Math.floor(Math.random() * 3) + 1;
-                        for (let k=0; k<starCount; k++) {
-                            const index = Math.floor(Math.random() * PARTICLE_COUNT);
-                            if (activeShootingStars[index] === undefined) {
-                                const direction = new THREE.Vector3(
-                                    (Math.random() - 0.5) * 2,
-                                    (Math.random() - 0.5) * 2,
-                                    (Math.random() - 0.5) * 0.5
-                                ).normalize();
-                                particleVelocities[index].copy(direction).multiplyScalar(shootingStarSpeedBoost);
-                                activeShootingStars[index] = elapsedTime + shootingStarDuration * (0.8 + Math.random() * 0.4);
-                            }
-                        }
-                        lastShootingStarTime = elapsedTime;
-                    }
-
-                    const positions = particleGeometry.attributes.position.array;
-                    if (!positions || positions.length !== PARTICLE_COUNT * 3) { return; }
-
-                    for (let i = 0; i < PARTICLE_COUNT; i++) {
-                        const i3 = i * 3;
-                        tempParticlePos.fromArray(positions, i3);
-                        const velocity = particleVelocities[i];
-                        const data = particleData[i];
-
-                        const isShootingStar = activeShootingStars[i] !== undefined;
-
-                        const distanceToMouseSq = tempParticlePos.distanceToSquared(mouseWorldPos);
-                        if (distanceToMouseSq < particleInteractionRadiusSq) {
-                            const repelDir = tempParticlePos.clone().sub(mouseWorldPos).normalize();
-                            const repelStrength = (particleInteractionRadiusSq - distanceToMouseSq) / particleInteractionRadiusSq;
-                            velocity.add(repelDir.multiplyScalar(particleRepulsionForce * Math.max(0, repelStrength) * delta * 60));
-                        }
-
-                        if (!isShootingStar) {
-                            data.phase += data.speed * delta;
-                            const offsetX = Math.sin(data.phase) * data.radius;
-                            const offsetY = Math.cos(data.phase) * data.radius;
-                            positions[i3] += offsetX * delta * 5;
-                            positions[i3 + 1] += offsetY * delta * 5;
-
-                            velocity.x += (Math.random() - 0.5) * particleBaseSpeed * delta * 15;
-                            velocity.y += (Math.random() - 0.5) * particleBaseSpeed * delta * 15;
-                            velocity.z += (Math.random() - 0.5) * particleBaseSpeed * delta * 15;
-                        }
-
-                        positions[i3] += velocity.x * delta * 60;
-                        positions[i3 + 1] += velocity.y * delta * 60;
-                        positions[i3 + 2] += velocity.z * delta * 60;
-
-                        if (!isShootingStar) {
-                             velocity.multiplyScalar(particleDamping);
-                        }
-
-                        if (isShootingStar && elapsedTime >= activeShootingStars[i]) {
-                            velocity.set(
-                                (Math.random() - 0.5) * particleBaseSpeed * 2,
-                                (Math.random() - 0.5) * particleBaseSpeed * 2,
-                                (Math.random() - 0.5) * particleBaseSpeed * 2
-                            );
-                            delete activeShootingStars[i];
-                        }
-
-                        const distSqFromCenter = positions[i3]**2 + positions[i3+1]**2 + positions[i3+2]**2;
-                        const resetRadiusSq = spread * spread * 0.35;
-                        if (distSqFromCenter > resetRadiusSq) {
-                            positions[i3] = (Math.random() - 0.5) * spread * 0.1;
-                            positions[i3+1] = (Math.random() - 0.5) * spread * 0.1;
-                            positions[i3+2] = (Math.random() - 0.5) * spread * 0.5;
-                            velocity.set(
-                               (Math.random() - 0.5) * particleBaseSpeed * 5,
-                               (Math.random() - 0.5) * particleBaseSpeed * 5,
-                               (Math.random() - 0.5) * particleBaseSpeed * 5
-                            );
-                            if (isShootingStar) delete activeShootingStars[i];
-                         }
-                    }
-                    particleGeometry.attributes.position.needsUpdate = true;
-
-                    renderer.render(scene, camera);
-
-                } catch (error) {
-                     console.error("Fehler im Three.js Animations-Loop:", error);
-                     if (animationFrameIdMain) cancelAnimationFrame(animationFrameIdMain);
-                     animationFrameIdMain = null; threeJsInitialized = false;
-                     if (threeJsCanvas) threeJsCanvas.style.display = 'none';
-                }
-            }
-
-            // --- Initiale Setup Aufrufe ---
-            console.log("DOM Geladen. Starte initiales Setup...");
-            startIntroAnimation();
-
-            if (initThreeJS()) {
-                 console.log("Three.js erfolgreich initialisiert. Starte Animations-Loops.");
-                 cancelAnimationFrame(animationFrameIdMain);
-                 animationFrameIdMain = requestAnimationFrame(animateThreeJS);
-
-                 if (socialIcons && socialIcons.length > 0) {
-                     cancelAnimationFrame(animationFrameIdSocial);
-                     animationFrameIdSocial = requestAnimationFrame(updateSocialIcons);
-                 } else { console.warn("Keine Social Icons gefunden."); }
-            } else {
-                 console.error("Three.js Initialisierung fehlgeschlagen. Partikel-Hintergrund & abhängige Animationen deaktiviert.");
-            }
-            console.log("Initiales Setup abgeschlossen.");
-
-            // Parallax Event Listener
-            window.addEventListener('scroll', handleParallax, { passive: true });
+            });
         });
     </script>
 </body>
 </html>
-
-
-
