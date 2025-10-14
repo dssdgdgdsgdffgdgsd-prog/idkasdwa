@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Realms - Unblocked Games for School</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>destroy.wtf</title>
     <style>
         * {
             margin: 0;
@@ -12,1119 +11,714 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
+        
         :root {
-            --primary: #6a11cb;
-            --secondary: #2575fc;
-            --accent: #ff2e63;
-            --dark: #121212;
-            --darker: #0a0a0a;
-            --light: #f5f5f5;
-            --gray: #a0a0c0;
-            --card-bg: rgba(30, 30, 46, 0.7);
-            --header-bg: rgba(18, 18, 30, 0.95);
+            --primary: #ff003c;
+            --primary-dark: #cc0030;
+            --secondary: #1a1a1a;
+            --accent: #2a2a2a;
+            --text: #f0f0f0;
+            --text-secondary: #a0a0a0;
+            --card-bg: rgba(30, 30, 30, 0.7);
+            --card-border: rgba(255, 0, 60, 0.2);
         }
-
+        
         body {
-            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
-            color: var(--light);
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            color: var(--text);
             min-height: 100vh;
             overflow-x: hidden;
-        }
-
-        /* Header Styles */
-        header {
-            background: var(--header-bg);
-            padding: 1.2rem 2rem;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .logo-icon {
-            font-size: 2.2rem;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        h1 {
-            font-size: 2.4rem;
-            background: linear-gradient(to right, var(--primary) 0%, var(--secondary) 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: 0 2px 10px rgba(106, 17, 203, 0.3);
-        }
-
-        .tagline {
-            font-size: 1rem;
-            color: var(--gray);
-            margin-top: -5px;
-        }
-
-        .search-container {
-            display: flex;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 30px;
-            padding: 8px 20px;
-            min-width: 300px;
-            transition: all 0.3s ease;
-        }
-
-        .search-container:focus-within {
-            background: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 0 0 2px var(--primary);
-        }
-
-        #search {
-            background: transparent;
-            border: none;
-            color: white;
-            font-size: 1rem;
-            outline: none;
-            width: 100%;
-            padding: 8px 0;
-        }
-
-        #search::placeholder {
-            color: var(--gray);
-        }
-
-        .search-icon {
-            color: var(--gray);
-            margin-right: 10px;
-        }
-
-        /* Navigation */
-        nav {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 0.8rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .categories {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .category-btn {
-            padding: 8px 20px;
-            background: rgba(255, 255, 255, 0.08);
-            border: none;
-            border-radius: 20px;
-            color: var(--gray);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 500;
-        }
-
-        .category-btn:hover, .category-btn.active {
-            background: linear-gradient(to right, var(--primary) 0%, var(--secondary) 100%);
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(106, 17, 203, 0.4);
-        }
-
-        .view-controls {
-            display: flex;
-            gap: 10px;
-        }
-
-        .view-btn {
-            background: rgba(255, 255, 255, 0.08);
-            border: none;
-            border-radius: 8px;
-            color: var(--gray);
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .view-btn.active {
-            background: var(--primary);
-            color: white;
-        }
-
-        /* Main Content */
-        main {
-            max-width: 1400px;
-            margin: 2rem auto;
-            padding: 0 1.5rem;
-        }
-
-        .featured-section {
-            margin-bottom: 3rem;
-        }
-
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .section-title {
-            font-size: 1.8rem;
             position: relative;
-            padding-bottom: 8px;
         }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 60px;
-            height: 3px;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            border-radius: 3px;
-        }
-
-        .view-all {
-            color: var(--gray);
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: color 0.3s ease;
-        }
-
-        .view-all:hover {
-            color: var(--secondary);
-        }
-
-        /* Games Grid */
-        .games-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.8rem;
-        }
-
-        .game-card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-            cursor: pointer;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .game-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 25px rgba(106, 17, 203, 0.4);
-            border-color: rgba(106, 17, 203, 0.3);
-        }
-
-        .game-image {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .game-info {
-            padding: 1.2rem;
-        }
-
-        .game-title {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-            color: #fff;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .game-rating {
-            color: gold;
-            font-size: 0.9rem;
-        }
-
-        .game-description {
-            font-size: 0.9rem;
-            color: var(--gray);
-            margin-bottom: 1rem;
-            line-height: 1.4;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .game-meta {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.8rem;
-            color: var(--gray);
-            margin-bottom: 1rem;
-        }
-
-        .game-category {
-            background: rgba(106, 17, 203, 0.2);
-            color: #c792ea;
-            padding: 3px 10px;
-            border-radius: 12px;
-        }
-
-        .play-btn {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            background: linear-gradient(to right, var(--primary) 0%, var(--secondary) 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .play-btn:hover {
-            transform: scale(1.03);
-            box-shadow: 0 4px 12px rgba(106, 17, 203, 0.4);
-        }
-
-        /* Featured Game */
-        .featured-game {
-            background: linear-gradient(135deg, rgba(106, 17, 203, 0.2) 0%, rgba(37, 117, 252, 0.2) 100%);
-            border-radius: 16px;
-            overflow: hidden;
-            display: flex;
-            margin-bottom: 3rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-        }
-
-        .featured-game-image {
-            width: 50%;
-            object-fit: cover;
-        }
-
-        .featured-game-info {
-            padding: 2rem;
-            width: 50%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .featured-badge {
-            background: var(--accent);
-            color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            display: inline-block;
-            margin-bottom: 1rem;
-            align-self: flex-start;
-        }
-
-        .featured-game-title {
-            font-size: 2.2rem;
-            margin-bottom: 1rem;
-        }
-
-        .featured-game-description {
-            font-size: 1rem;
-            color: var(--gray);
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-        }
-
-        .featured-play-btn {
-            background: linear-gradient(to right, var(--primary) 0%, var(--secondary) 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            padding: 12px 30px;
-            font-weight: bold;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            align-self: flex-start;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .featured-play-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(106, 17, 203, 0.5);
-        }
-
-        /* Game Modal */
-        .game-modal {
-            display: none;
+        
+        /* Background elements */
+        .bg-grid {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
+            background-image: 
+                linear-gradient(rgba(255, 0, 60, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 0, 60, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
         }
-
-        .modal-content {
-            width: 95%;
-            height: 90%;
-            background: var(--dark);
-            border-radius: 16px;
+        
+        .floating-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
             overflow: hidden;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
-            display: flex;
-            flex-direction: column;
-            border: 1px solid rgba(255, 255, 255, 0.1);
         }
-
-        .modal-header {
-            padding: 1.2rem 1.5rem;
-            background: rgba(0, 0, 0, 0.5);
+        
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+            opacity: 0.1;
+            filter: blur(20px);
+        }
+        
+        .shape:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: 10%;
+            left: 5%;
+            animation: float 15s ease-in-out infinite;
+        }
+        
+        .shape:nth-child(2) {
+            width: 500px;
+            height: 500px;
+            bottom: 10%;
+            right: 5%;
+            animation: float 20s ease-in-out infinite reverse;
+        }
+        
+        .shape:nth-child(3) {
+            width: 200px;
+            height: 200px;
+            top: 50%;
+            left: 80%;
+            animation: float 12s ease-in-out infinite;
+        }
+        
+        /* Header */
+        header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px 5%;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 0, 60, 0.1);
         }
-
-        .modal-title {
-            font-size: 1.5rem;
-            color: white;
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
-
-        .close-btn {
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
+        
+        .logo span {
+            color: var(--text);
+        }
+        
+        nav ul {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
+            list-style: none;
+            gap: 30px;
         }
-
-        .close-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: rotate(90deg);
-        }
-
-        .game-frame {
-            flex: 1;
-            border: none;
-            background: white;
-        }
-
-        /* Footer */
-        footer {
-            background: var(--darker);
-            padding: 3rem 2rem 2rem;
-            margin-top: 4rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        .footer-section h3 {
-            font-size: 1.3rem;
-            margin-bottom: 1.2rem;
-            color: white;
+        
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
             position: relative;
-            padding-bottom: 8px;
+            cursor: pointer;
         }
-
-        .footer-section h3::after {
+        
+        nav a:hover {
+            color: var(--primary);
+        }
+        
+        nav a.active {
+            color: var(--primary);
+        }
+        
+        nav a.active::after {
             content: '';
             position: absolute;
-            bottom: 0;
+            bottom: -5px;
             left: 0;
-            width: 40px;
-            height: 3px;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
+            width: 100%;
+            height: 2px;
+            background: var(--primary);
         }
-
-        .footer-links {
-            list-style: none;
+        
+        /* Main content */
+        main {
+            padding-top: 100px;
+            min-height: 100vh;
         }
-
-        .footer-links li {
-            margin-bottom: 10px;
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
-
-        .footer-links a {
-            color: var(--gray);
-            text-decoration: none;
-            transition: color 0.3s ease;
+        
+        /* Tab content */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* Home Tab */
+        .hero {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 8px;
-        }
-
-        .footer-links a:hover {
-            color: var(--secondary);
-        }
-
-        .footer-bottom {
             text-align: center;
-            padding-top: 2rem;
-            margin-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--gray);
+            padding: 80px 0 40px;
+        }
+        
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, var(--primary), #ff6699);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin-bottom: 40px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        
+        .hero-image {
+            width: 100%;
+            max-width: 500px;
+            margin: 40px 0;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--card-border);
+        }
+        
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .brand-text {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin-top: 20px;
+            text-shadow: 0 0 20px rgba(255, 0, 60, 0.5);
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 0, 60, 0.3);
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 0, 60, 0.4);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-3px);
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            color: var(--text);
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: var(--primary);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid var(--card-border);
+            backdrop-filter: blur(10px);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--text);
+        }
+        
+        .feature-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        
+        /* Script Tab */
+        .script-container {
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .script-box {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+            border: 1px solid var(--card-border);
+            backdrop-filter: blur(10px);
+        }
+        
+        .script-code {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 30px 0;
+            text-align: left;
+            font-family: monospace;
+            color: var(--text);
+            border: 1px solid rgba(255, 0, 60, 0.2);
+            overflow-x: auto;
+        }
+        
+        .script-code pre {
+            margin: 0;
+            white-space: pre-wrap;
+        }
+        
+        /* FAQ Tab */
+        .faq-container {
+            padding: 80px 0;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            background: var(--card-bg);
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 1px solid var(--card-border);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+        
+        .faq-question {
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s;
+        }
+        
+        .faq-question:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .faq-question h3 {
+            margin: 0;
+            color: var(--text);
+        }
+        
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            color: var(--text-secondary);
+        }
+        
+        .faq-answer.active {
+            padding: 20px;
+            max-height: 500px;
+        }
+        
+        /* Footer */
+        footer {
+            background: rgba(10, 10, 10, 0.9);
+            padding: 40px 0;
+            text-align: center;
+            margin-top: 80px;
+            border-top: 1px solid rgba(255, 0, 60, 0.1);
+        }
+        
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+        
+        .copyright {
+            color: var(--text-secondary);
             font-size: 0.9rem;
         }
-
-        /* Responsive Design */
-        @media (max-width: 1100px) {
-            .featured-game {
-                flex-direction: column;
+        
+        /* Animations */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
             }
-            
-            .featured-game-image, .featured-game-info {
-                width: 100%;
-            }
-        }
-
-        @media (max-width: 900px) {
-            header {
-                flex-direction: column;
-                gap: 1rem;
-                padding: 1rem;
-            }
-            
-            .search-container {
-                min-width: 100%;
-            }
-            
-            nav {
-                padding: 0.8rem 1rem;
+            50% {
+                transform: translateY(-20px) translateX(10px);
             }
         }
-
+        
+        /* Responsive */
         @media (max-width: 768px) {
-            .games-grid {
-                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            .hero h1 {
+                font-size: 2.5rem;
             }
             
-            h1 {
-                font-size: 2rem;
+            nav ul {
+                gap: 15px;
             }
             
-            .categories {
-                justify-content: center;
-            }
-        }
-
-        @media (max-width: 600px) {
-            .games-grid {
-                grid-template-columns: 1fr;
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
             }
             
-            .featured-game-title {
-                font-size: 1.8rem;
+            .btn {
+                width: 200px;
+                text-align: center;
             }
-            
-            .modal-content {
-                width: 100%;
-                height: 100%;
-                border-radius: 0;
-            }
-            
-            .game-modal {
-                padding: 0;
-            }
-        }
-
-        /* Animation for game cards */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .game-card {
-            animation: fadeIn 0.5s ease forwards;
-        }
-
-        /* Scrollbar Styling */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--darker);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(to bottom, var(--primary), var(--secondary));
-            border-radius: 10px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(to bottom, var(--secondary), var(--primary));
         }
     </style>
 </head>
 <body>
+    <div class="bg-grid"></div>
+    <div class="floating-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+    
     <header>
-        <div class="logo">
-            <i class="fas fa-dice-d20 logo-icon"></i>
-            <div>
-                <h1>Realms</h1>
-                <p class="tagline">Unblocked Games for School & Beyond</p>
-            </div>
-        </div>
-        <div class="search-container">
-            <i class="fas fa-search search-icon"></i>
-            <input type="text" id="search" placeholder="Search for games...">
-        </div>
+        <div class="logo">destroy<span>.wtf</span></div>
+        <nav>
+            <ul>
+                <li><a class="tab-link active" data-tab="home">Home</a></li>
+                <li><a class="tab-link" data-tab="script">Script</a></li>
+                <li><a id="discord-link" target="_blank">Discord</a></li>
+                <li><a class="tab-link" data-tab="faq">FAQ</a></li>
+            </ul>
+        </nav>
     </header>
-
-    <nav>
-        <div class="categories">
-            <button class="category-btn active" data-category="all">All Games</button>
-            <button class="category-btn" data-category="shooter">Shooter</button>
-            <button class="category-btn" data-category="sports">Sports</button>
-            <button class="category-btn" data-category="io">.IO Games</button>
-            <button class="category-btn" data-category="strategy">Strategy</button>
-            <button class="category-btn" data-category="racing">Racing</button>
-            <button class="category-btn" data-category="puzzle">Puzzle</button>
-            <button class="category-btn" data-category="funny">Funny</button>
-        </div>
-        <div class="view-controls">
-            <button class="view-btn active" id="grid-view"><i class="fas fa-th"></i></button>
-            <button class="view-btn" id="list-view"><i class="fas fa-list"></i></button>
-        </div>
-    </nav>
-
+    
     <main>
-        <!-- Featured Game Section -->
-        <section class="featured-section">
-            <div class="featured-game">
-                <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Featured Game" class="featured-game-image">
-                <div class="featured-game-info">
-                    <span class="featured-badge">MOST POPULAR</span>
-                    <h2 class="featured-game-title">1v1.LOL</h2>
-                    <p class="featured-game-description">The ultimate 1v1 building and shooting experience. Practice your skills in creative mode or challenge players worldwide in competitive matches. Build, edit, and outplay your opponents in this fast-paced battle game.</p>
-                    <button class="featured-play-btn" data-id="1">
-                        <i class="fas fa-play"></i> Play Now
-                    </button>
+        <!-- Home Tab -->
+        <section id="home" class="tab-content active">
+            <div class="hero">
+                <div class="container">
+                    <h1>Best Script For Mic Up</h1>
+                    <p>The ultimate script for Mic Up and Mic Up 18+. Completely undetected with premium tools to enhance your gameplay.</p>
+                    
+                    <div class="hero-image">
+                        <img src="https://cdn.discordapp.com/attachments/1427063930274058372/1427796649362718792/lol.png?ex=68f02ac0&is=68eed940&hm=031efb914b4765147a2d30b784b0a1a93c91d2637b6172e60c5b9a1edbbbec3f&" alt="destroy.wtf">
+                    </div>
+                    
+                    <div class="brand-text">destroy.wtf</div>
+                    
+                    <div class="cta-buttons">
+                        <a class="btn btn-primary tab-link" data-tab="script">Get Script</a>
+                        <a class="btn btn-secondary" id="discord-btn" target="_blank">Join Discord</a>
+                    </div>
+                </div>
+            </div>
+            
+            <section class="features">
+                <div class="container">
+                    <h2 class="section-title">Premium Features</h2>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">🛡️</div>
+                            <h3>Http Blocker</h3>
+                            <p>Blocks any unwanted http requests such as loggers from other scripts for maximum security.</p>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-icon">⚡</div>
+                            <h3>R15 Reanimation</h3>
+                            <p>Fully reanimate your Roblox character to allow custom emotes and animations.</p>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-icon">🎭</div>
+                            <h3>Custom Reanimation</h3>
+                            <p>Customize your reanimation types to suit your playstyle and preferences.</p>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-icon">🔒</div>
+                            <h3>Undetectable</h3>
+                            <p>Our script is completely undetectable and safe to use on any executor.</p>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-icon">🚀</div>
+                            <h3>Optimized Performance</h3>
+                            <p>Lightweight and optimized for smooth performance without lag.</p>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-icon">🔄</div>
+                            <h3>Regular Updates</h3>
+                            <p>Frequent updates to ensure compatibility with the latest game versions.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>
+        
+        <!-- Script Tab -->
+        <section id="script" class="tab-content">
+            <div class="script-container">
+                <div class="container">
+                    <h1 class="section-title">Get The Script</h1>
+                    <div class="script-box">
+                        <h2>Script Code</h2>
+                        <p>Copy and paste this code into your executor:</p>
+                        
+                        <div class="script-code">
+                            <pre>-- destroy.wtf Script
+-- Premium tools for Mic Up
+
+loadstring(game:HttpGet("https://destroy.wtf/script.lua"))()</pre>
+                        </div>
+                        
+                        <div class="cta-buttons">
+                            <button class="btn btn-primary" id="copy-script">Copy Script</button>
+                            <a class="btn btn-secondary" id="discord-support" target="_blank">Get Support</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
-
-        <!-- Popular Games Section -->
-        <section class="featured-section">
-            <div class="section-header">
-                <h2 class="section-title">Popular Games</h2>
-                <a href="#" class="view-all">View All <i class="fas fa-chevron-right"></i></a>
-            </div>
-            <div class="games-grid" id="games-container">
-                <!-- Game cards will be dynamically inserted here -->
-            </div>
-        </section>
-
-        <!-- New Games Section -->
-        <section class="featured-section">
-            <div class="section-header">
-                <h2 class="section-title">Recently Added</h2>
-                <a href="#" class="view-all">View All <i class="fas fa-chevron-right"></i></a>
-            </div>
-            <div class="games-grid" id="new-games-container">
-                <!-- New game cards will be dynamically inserted here -->
+        
+        <!-- FAQ Tab -->
+        <section id="faq" class="tab-content">
+            <div class="faq-container">
+                <h1 class="section-title">Frequently Asked Questions</h1>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Is destroy.wtf safe to use?</h3>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, destroy.wtf is completely safe and undetectable. We use advanced obfuscation techniques to ensure your account remains secure while using our script.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>What games does destroy.wtf work on?</h3>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Our script is specifically designed for Mic Up and Mic Up 18+, but many features work across various Roblox games. Check our Discord for compatibility updates.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>How often is the script updated?</h3>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We update the script regularly to ensure compatibility with Roblox updates and to add new features. Major updates are announced in our Discord server.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Do I need a special executor?</h3>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>No, destroy.wtf works on every executor!</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Is there a premium version?</h3>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, we offer a premium version with additional features and priority support. Check our Discord server for pricing and subscription details.</p>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
-
-    <!-- Game Modal -->
-    <div class="game-modal" id="game-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title" id="modal-title">Game Title</h2>
-                <button class="close-btn" id="close-modal">&times;</button>
-            </div>
-            <iframe class="game-frame" id="game-frame" src="" frameborder="0"></iframe>
-        </div>
-    </div>
-
+    
     <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>About Realms</h3>
-                <p>Realms offers the best collection of unblocked browser games that work at school. All games are carefully selected to provide fun and entertainment during breaks.</p>
+        <div class="container">
+            <div class="footer-logo">destroy.wtf</div>
+            <div class="footer-links">
+                <a class="tab-link" data-tab="home">Home</a>
+                <a class="tab-link" data-tab="script">Script</a>
+                <a id="footer-discord" target="_blank">Discord</a>
+                <a class="tab-link" data-tab="faq">FAQ</a>
             </div>
-            <div class="footer-section">
-                <h3>Quick Links</h3>
-                <ul class="footer-links">
-                    <li><a href="#"><i class="fas fa-gamepad"></i> All Games</a></li>
-                    <li><a href="#"><i class="fas fa-fire"></i> Popular Games</a></li>
-                    <li><a href="#"><i class="fas fa-star"></i> New Games</a></li>
-                    <li><a href="#"><i class="fas fa-trophy"></i> Top Rated</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Categories</h3>
-                <ul class="footer-links">
-                    <li><a href="#"><i class="fas fa-fist-raised"></i> Shooter</a></li>
-                    <li><a href="#"><i class="fas fa-basketball-ball"></i> Sports</a></li>
-                    <li><a href="#"><i class="fas fa-chess"></i> Strategy</a></li>
-                    <li><a href="#"><i class="fas fa-running"></i> .IO Games</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Support</h3>
-                <ul class="footer-links">
-                    <li><a href="#"><i class="fas fa-question-circle"></i> Help Center</a></li>
-                    <li><a href="#"><i class="fas fa-envelope"></i> Contact Us</a></li>
-                    <li><a href="#"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
-                    <li><a href="#"><i class="fas fa-file-contract"></i> Terms of Service</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>Realms &copy; 2023 - All rights reserved | For educational purposes only</p>
+            <div class="copyright">© 2025 destroy.wtf. All rights reserved.</div>
         </div>
     </footer>
 
     <script>
-        // Game data with popular school games - all confirmed to work
-        const games = [
-            {
-                id: 1,
-                title: "1v1.LOL",
-                description: "Build, edit, and battle in this competitive 1v1 shooter with building mechanics.",
-                category: "shooter",
-                rating: 4.8,
-                plays: "350K",
-                image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
-                url: "https://1v1.lol/"
-            },
-            {
-                id: 2,
-                title: "Shell Shockers",
-                description: "Multiplayer egg-based shooter with unique characters and fast-paced action.",
-                category: "shooter",
-                rating: 4.7,
-                plays: "280K",
-                image: "https://images.unsplash.com/photo-1551103782-8ab07afd45c1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
-                url: "https://shellshock.io/"
-            },
-            {
-                id: 3,
-                title: "Krunker.io",
-                description: "Fast-paced browser FPS with smooth gameplay and various game modes.",
-                category: "shooter",
-                rating: 4.8,
-                plays: "420K",
-                image: "https://images.unsplash.com/photo-1534423861386-85a16f5d13fd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
-                url: "https://krunker.io/"
-            },
-            {
-                id: 4,
-                title: "Slope",
-                description: "Addictive 3D running game where you control a ball rolling down a slope.",
-                category: "racing",
-                rating: 4.6,
-                plays: "320K",
-                image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
-                url: "https://slope-game.com/"
-            },
-            {
-                id: 5,
-                title: "Moto X3M",
-                description: "Exciting motorcycle racing game with challenging obstacles and physics.",
-                category: "racing",
-                rating: 4.7,
-                plays: "290K",
-                image: "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
-                url: "https://motox3m.pro/"
-            },
-            {
-                id: 6,
-                title: "Paper.io 2",
-                description: "Claim territory and defeat opponents in this popular .io game.",
-                category: "io",
-                rating: 4.5,
-                plays: "260K",
-                image: "https://images.unsplash.com/photo-1612036782180-6f0b6cd846fe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
-                url: "https://paper-io.com/"
-            },
-            {
-                id: 7,
-                title: "Vasketball Bros",
-                description: "Fun basketball game with simple controls and addictive gameplay.",
-                category: "sports",
-                rating: 4.4,
-                plays: "180K",
-                image: "https://images.unsplash.com/photo-1546519638-68e109498ffc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
-                url: "https://vasketballbros.com/"
-            },
-            {
-                id: 8,
-                title: "Basket Random",
-                description: "Randomized basketball game with unpredictable physics and hilarious moments.",
-                category: "sports",
-                rating: 4.6,
-                plays: "220K",
-                image: "https://images.unsplash.com/photo-1575361204480-aadea25e6e68?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
-                url: "https://basketrandom.com/"
-            },
-            {
-                id: 9,
-                title: "Tunnel Rush",
-                description: "Navigate through a twisting tunnel at high speed in this reflex-testing game.",
-                category: "racing",
-                rating: 4.5,
-                plays: "190K",
-                image: "https://images.unsplash.com/photo-1486572788966-cfd3df1f5b42?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
-                url: "https://tunnelrush.com/"
-            },
-            {
-                id: 10,
-                title: "Cookie Clicker",
-                description: "The original idle clicker game. Bake cookies, buy upgrades, and expand your empire.",
-                category: "strategy",
-                rating: 4.7,
-                plays: "380K",
-                image: "https://images.unsplash.com/photo-1558961367-2e837c0a3c0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
-                url: "https://cookieclicker.com/"
-            },
-            {
-                id: 11,
-                title: "Doge Miner",
-                description: "Mine Dogecoins in this fun clicker game with upgrades and achievements.",
-                category: "strategy",
-                rating: 4.3,
-                plays: "150K",
-                image: "https://images.unsplash.com/photo-1516245834210-c4c142787335?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
-                url: "https://dogeminer.com/"
-            },
-            {
-                id: 12,
-                title: "Hole.io",
-                description: "Control a black hole and swallow everything in your path in this addictive game.",
-                category: "io",
-                rating: 4.5,
-                plays: "270K",
-                image: "https://images.unsplash.com/photo-1535223289827-42f1e9919769?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
-                url: "https://hole-io.com/"
-            }
-        ];
-
-        // New games data
-        const newGames = [
-            {
-                id: 13,
-                title: "Retro Bowl",
-                description: "Classic-style football management game with simple controls and deep strategy.",
-                category: "sports",
-                rating: 4.8,
-                plays: "160K",
-                image: "https://images.unsplash.com/photo-1575361204480-aadea25e6e68?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
-                url: "https://retrobowl.com/"
-            },
-            {
-                id: 14,
-                title: "Tiny Fishing",
-                description: "Relaxing fishing game with upgrades and different fish to catch.",
-                category: "puzzle",
-                rating: 4.3,
-                plays: "120K",
-                image: "https://images.unsplash.com/photo-1464207687429-7505649dae38?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
-                url: "https://tinyfishing.com/"
-            },
-            {
-                id: 15,
-                title: "Rooftop Snipers",
-                description: "Hilarious 2-player fighting game on rooftops. Simple controls, crazy fun.",
-                category: "funny",
-                rating: 4.4,
-                plays: "140K",
-                image: "https://images.unsplash.com/photo-1540959733332-8cbd5d1a58de?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
-                url: "https://rooftopsnipers.com/"
-            },
-            {
-                id: 16,
-                title: "Slither.io",
-                description: "Grow the longest snake in this massively multiplayer .io game.",
-                category: "io",
-                rating: 4.6,
-                plays: "450K",
-                image: "https://images.unsplash.com/photo-1577083552431-6e5fd01988a3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
-                url: "https://slither.io/"
-            },
-            {
-                id: 17,
-                title: "Agar.io",
-                description: "The original cell-eating .io game. Eat smaller cells and avoid larger ones.",
-                category: "io",
-                rating: 4.5,
-                plays: "520K",
-                image: "https://images.unsplash.com/photo-1514894780887-121968d00567?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
-                url: "https://agar.io/"
-            },
-            {
-                id: 18,
-                title: "Diep.io",
-                description: "Upgrade your tank and dominate the battlefield in this popular .io game.",
-                category: "io",
-                rating: 4.7,
-                plays: "380K",
-                image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
-                url: "https://diep.io/"
-            },
-            {
-                id: 19,
-                title: "Minecraft Classic",
-                description: "The original browser version of Minecraft. Build and explore freely.",
-                category: "strategy",
-                rating: 4.8,
-                plays: "680K",
-                image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
-                url: "https://classic.minecraft.net/"
-            },
-            {
-                id: 20,
-                title: "Tetris",
-                description: "The timeless puzzle classic. Arrange falling blocks to complete lines.",
-                category: "puzzle",
-                rating: 4.9,
-                plays: "590K",
-                image: "https://images.unsplash.com/photo-1632501641765-e56838a9d6f2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
-                url: "https://tetris.com/play-tetris"
-            },
-            {
-                id: 21,
-                title: "Pac-Man",
-                description: "The classic arcade game. Eat dots and avoid ghosts in the maze.",
-                category: "puzzle",
-                rating: 4.7,
-                plays: "310K",
-                image: "https://images.unsplash.com/photo-1535223289827-42f1e9919769?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
-                url: "https://www.pacman.com/"
-            },
-            {
-                id: 22,
-                title: "Geometry Dash",
-                description: "Rhythm-based platformer with challenging levels and custom music.",
-                category: "puzzle",
-                rating: 4.6,
-                plays: "340K",
-                image: "https://images.unsplash.com/photo-1551103782-8ab07afd45c1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
-                url: "https://geometrydash.io/"
-            },
-            {
-                id: 23,
-                title: "Subway Surfers",
-                description: "Endless runner game where you dash through subway tracks and avoid obstacles.",
-                category: "racing",
-                rating: 4.7,
-                plays: "410K",
-                image: "https://images.unsplash.com/photo-1486572788966-cfd3df1f5b42?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
-                url: "https://subway-surfers.com/"
-            },
-            {
-                id: 24,
-                title: "Stickman Hook",
-                description: "Swing your stickman through challenging levels using a grappling hook.",
-                category: "puzzle",
-                rating: 4.4,
-                plays: "190K",
-                image: "https://images.unsplash.com/photo-1540959733332-8cbd5d1a58de?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
-                url: "https://stickman-hook.com/"
-            }
-        ];
-
-        // DOM Elements
-        const gamesContainer = document.getElementById('games-container');
-        const newGamesContainer = document.getElementById('new-games-container');
-        const searchInput = document.getElementById('search');
-        const categoryButtons = document.querySelectorAll('.category-btn');
-        const gameModal = document.getElementById('game-modal');
-        const gameFrame = document.getElementById('game-frame');
-        const modalTitle = document.getElementById('modal-title');
-        const closeModal = document.getElementById('close-modal');
-        const gridViewBtn = document.getElementById('grid-view');
-        const listViewBtn = document.getElementById('list-view');
-        const featuredPlayBtn = document.querySelector('.featured-play-btn');
-
-        // Initialize the games display
-        function displayGames(gamesToDisplay, container) {
-            container.innerHTML = '';
-            
-            gamesToDisplay.forEach(game => {
-                const gameCard = document.createElement('div');
-                gameCard.className = 'game-card';
-                gameCard.setAttribute('data-category', game.category);
+        // Tab functionality
+        document.querySelectorAll('.tab-link').forEach(link => {
+            link.addEventListener('click', function() {
+                // Remove active class from all tabs and links
+                document.querySelectorAll('.tab-link').forEach(l => l.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
                 
-                // Generate star rating
-                const stars = '★'.repeat(Math.floor(game.rating)) + '☆'.repeat(5 - Math.floor(game.rating));
-                
-                gameCard.innerHTML = `
-                    <img src="${game.image}" alt="${game.title}" class="game-image">
-                    <div class="game-info">
-                        <div class="game-title">
-                            <span>${game.title}</span>
-                            <span class="game-rating">${stars}</span>
-                        </div>
-                        <p class="game-description">${game.description}</p>
-                        <div class="game-meta">
-                            <span class="game-category">${game.category}</span>
-                            <span><i class="fas fa-play-circle"></i> ${game.plays}</span>
-                        </div>
-                        <button class="play-btn" data-id="${game.id}">
-                            <i class="fas fa-play"></i> Play Now
-                        </button>
-                    </div>
-                `;
-                
-                container.appendChild(gameCard);
-            });
-            
-            // Add event listeners to play buttons
-            document.querySelectorAll('.play-btn').forEach(button => {
-                button.addEventListener('click', function() {
-                    const gameId = parseInt(this.getAttribute('data-id'));
-                    openGame(gameId);
-                });
-            });
-        }
-
-        // Open game in modal
-        function openGame(gameId) {
-            let game = games.find(g => g.id === gameId);
-            if (!game) {
-                game = newGames.find(g => g.id === gameId);
-            }
-            
-            if (game) {
-                modalTitle.textContent = game.title;
-                gameFrame.src = game.url;
-                gameModal.style.display = 'flex';
-                document.body.style.overflow = 'hidden';
-            }
-        }
-
-        // Close modal
-        closeModal.addEventListener('click', function() {
-            gameModal.style.display = 'none';
-            gameFrame.src = '';
-            document.body.style.overflow = 'auto';
-        });
-
-        // Close modal when clicking outside the content
-        gameModal.addEventListener('click', function(e) {
-            if (e.target === gameModal) {
-                gameModal.style.display = 'none';
-                gameFrame.src = '';
-                document.body.style.overflow = 'auto';
-            }
-        });
-
-        // Filter games by category
-        categoryButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                // Update active button
-                categoryButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked link
                 this.classList.add('active');
                 
-                const category = this.getAttribute('data-category');
-                filterGames(category);
+                // Show corresponding tab content
+                const tabId = this.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
             });
         });
-
-        // Filter games function
-        function filterGames(category) {
-            let filteredGames = games;
-            let filteredNewGames = newGames;
-            
-            if (category !== 'all') {
-                filteredGames = games.filter(game => game.category === category);
-                filteredNewGames = newGames.filter(game => game.category === category);
-            }
-            
-            // Apply search filter if there's a search term
-            const searchTerm = searchInput.value.toLowerCase();
-            if (searchTerm) {
-                filteredGames = filteredGames.filter(game => 
-                    game.title.toLowerCase().includes(searchTerm) || 
-                    game.description.toLowerCase().includes(searchTerm)
-                );
-                filteredNewGames = filteredNewGames.filter(game => 
-                    game.title.toLowerCase().includes(searchTerm) || 
-                    game.description.toLowerCase().includes(searchTerm)
-                );
-            }
-            
-            displayGames(filteredGames, gamesContainer);
-            displayGames(filteredNewGames, newGamesContainer);
-        }
-
-        // Search functionality
-        searchInput.addEventListener('input', function() {
-            const searchTerm = this.value.toLowerCase();
-            const activeCategory = document.querySelector('.category-btn.active').getAttribute('data-category');
-            
-            filterGames(activeCategory);
+        
+        // FAQ accordion functionality
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', function() {
+                const answer = this.nextElementSibling;
+                const isActive = answer.classList.contains('active');
+                
+                // Close all answers
+                document.querySelectorAll('.faq-answer').forEach(ans => {
+                    ans.classList.remove('active');
+                });
+                
+                // Toggle current answer
+                if (!isActive) {
+                    answer.classList.add('active');
+                }
+            });
         });
-
-        // View controls
-        gridViewBtn.addEventListener('click', function() {
-            gridViewBtn.classList.add('active');
-            listViewBtn.classList.remove('active');
-            gamesContainer.classList.remove('list-view');
-            newGamesContainer.classList.remove('list-view');
+        
+        // Copy script functionality
+        document.getElementById('copy-script').addEventListener('click', function() {
+            const scriptCode = document.querySelector('.script-code pre').textContent;
+            navigator.clipboard.writeText(scriptCode).then(() => {
+                const originalText = this.textContent;
+                this.textContent = 'Copied!';
+                setTimeout(() => {
+                    this.textContent = originalText;
+                }, 2000);
+            });
         });
-
-        listViewBtn.addEventListener('click', function() {
-            listViewBtn.classList.add('active');
-            gridViewBtn.classList.remove('active');
-            gamesContainer.classList.add('list-view');
-            newGamesContainer.classList.add('list-view');
-        });
-
-        // Featured game play button
-        featuredPlayBtn.addEventListener('click', function() {
-            const gameId = parseInt(this.getAttribute('data-id'));
-            openGame(gameId);
-        });
-
-        // Initial display of all games
-        displayGames(games, gamesContainer);
-        displayGames(newGames, newGamesContainer);
+        
+        // Discord links
+        const discordUrl = 'https://discord.gg/TtpZv7mV7z';
+        document.getElementById('discord-link').addEventListener('click', () => window.open(discordUrl, '_blank'));
+        document.getElementById('discord-btn').addEventListener('click', () => window.open(discordUrl, '_blank'));
+        document.getElementById('discord-support').addEventListener('click', () => window.open(discordUrl, '_blank'));
+        document.getElementById('footer-discord').addEventListener('click', () => window.open(discordUrl, '_blank'));
     </script>
 </body>
 </html>
