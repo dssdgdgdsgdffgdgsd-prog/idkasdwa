@@ -1,25 +1,1130 @@
-identifyexecutor()
-print(identifyexecutor())
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Realms - Unblocked Games for School</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-local _version = {}
+        :root {
+            --primary: #6a11cb;
+            --secondary: #2575fc;
+            --accent: #ff2e63;
+            --dark: #121212;
+            --darker: #0a0a0a;
+            --light: #f5f5f5;
+            --gray: #a0a0c0;
+            --card-bg: rgba(30, 30, 46, 0.7);
+            --header-bg: rgba(18, 18, 30, 0.95);
+        }
 
+        body {
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+            color: var(--light);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
 
-function _version:ver(version)
-    local success, error = pcall(function()
-        local r = request({
-            Url = "https://inject.today/api/versions/current",
-            Method = "GET",
-            Headers = {},
-            Cookies = {}
-        })
-        print(r.Body)
-    end)
-    
-    if not success then
-        warn("Executor Doesn't support \"request()\"")
-        return
-    end
-end
+        /* Header Styles */
+        header {
+            background: var(--header-bg);
+            padding: 1.2rem 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
 
-_version:ver()
-return _Version
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            font-size: 2.2rem;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        h1 {
+            font-size: 2.4rem;
+            background: linear-gradient(to right, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 10px rgba(106, 17, 203, 0.3);
+        }
+
+        .tagline {
+            font-size: 1rem;
+            color: var(--gray);
+            margin-top: -5px;
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            padding: 8px 20px;
+            min-width: 300px;
+            transition: all 0.3s ease;
+        }
+
+        .search-container:focus-within {
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 0 2px var(--primary);
+        }
+
+        #search {
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 1rem;
+            outline: none;
+            width: 100%;
+            padding: 8px 0;
+        }
+
+        #search::placeholder {
+            color: var(--gray);
+        }
+
+        .search-icon {
+            color: var(--gray);
+            margin-right: 10px;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 0.8rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .categories {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .category-btn {
+            padding: 8px 20px;
+            background: rgba(255, 255, 255, 0.08);
+            border: none;
+            border-radius: 20px;
+            color: var(--gray);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .category-btn:hover, .category-btn.active {
+            background: linear-gradient(to right, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(106, 17, 203, 0.4);
+        }
+
+        .view-controls {
+            display: flex;
+            gap: 10px;
+        }
+
+        .view-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: none;
+            border-radius: 8px;
+            color: var(--gray);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .view-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Main Content */
+        main {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .featured-section {
+            margin-bottom: 3rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            position: relative;
+            padding-bottom: 8px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 3px;
+        }
+
+        .view-all {
+            color: var(--gray);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .view-all:hover {
+            color: var(--secondary);
+        }
+
+        /* Games Grid */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.8rem;
+        }
+
+        .game-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .game-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(106, 17, 203, 0.4);
+            border-color: rgba(106, 17, 203, 0.3);
+        }
+
+        .game-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .game-info {
+            padding: 1.2rem;
+        }
+
+        .game-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .game-rating {
+            color: gold;
+            font-size: 0.9rem;
+        }
+
+        .game-description {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-bottom: 1rem;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .game-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-bottom: 1rem;
+        }
+
+        .game-category {
+            background: rgba(106, 17, 203, 0.2);
+            color: #c792ea;
+            padding: 3px 10px;
+            border-radius: 12px;
+        }
+
+        .play-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background: linear-gradient(to right, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .play-btn:hover {
+            transform: scale(1.03);
+            box-shadow: 0 4px 12px rgba(106, 17, 203, 0.4);
+        }
+
+        /* Featured Game */
+        .featured-game {
+            background: linear-gradient(135deg, rgba(106, 17, 203, 0.2) 0%, rgba(37, 117, 252, 0.2) 100%);
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .featured-game-image {
+            width: 50%;
+            object-fit: cover;
+        }
+
+        .featured-game-info {
+            padding: 2rem;
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .featured-badge {
+            background: var(--accent);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 1rem;
+            align-self: flex-start;
+        }
+
+        .featured-game-title {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .featured-game-description {
+            font-size: 1rem;
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .featured-play-btn {
+            background: linear-gradient(to right, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 30px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            align-self: flex-start;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .featured-play-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(106, 17, 203, 0.5);
+        }
+
+        /* Game Modal */
+        .game-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .modal-content {
+            width: 95%;
+            height: 90%;
+            background: var(--dark);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-header {
+            padding: 1.2rem 1.5rem;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .close-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+
+        .game-frame {
+            flex: 1;
+            border: none;
+            background: white;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--darker);
+            padding: 3rem 2rem 2rem;
+            margin-top: 4rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.2rem;
+            color: white;
+            position: relative;
+            padding-bottom: 8px;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1100px) {
+            .featured-game {
+                flex-direction: column;
+            }
+            
+            .featured-game-image, .featured-game-info {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 900px) {
+            header {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+            
+            .search-container {
+                min-width: 100%;
+            }
+            
+            nav {
+                padding: 0.8rem 1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .games-grid {
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .categories {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .games-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .featured-game-title {
+                font-size: 1.8rem;
+            }
+            
+            .modal-content {
+                width: 100%;
+                height: 100%;
+                border-radius: 0;
+            }
+            
+            .game-modal {
+                padding: 0;
+            }
+        }
+
+        /* Animation for game cards */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .game-card {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--darker);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(to bottom, var(--secondary), var(--primary));
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <i class="fas fa-dice-d20 logo-icon"></i>
+            <div>
+                <h1>Realms</h1>
+                <p class="tagline">Unblocked Games for School & Beyond</p>
+            </div>
+        </div>
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" id="search" placeholder="Search for games...">
+        </div>
+    </header>
+
+    <nav>
+        <div class="categories">
+            <button class="category-btn active" data-category="all">All Games</button>
+            <button class="category-btn" data-category="shooter">Shooter</button>
+            <button class="category-btn" data-category="sports">Sports</button>
+            <button class="category-btn" data-category="io">.IO Games</button>
+            <button class="category-btn" data-category="strategy">Strategy</button>
+            <button class="category-btn" data-category="racing">Racing</button>
+            <button class="category-btn" data-category="puzzle">Puzzle</button>
+            <button class="category-btn" data-category="funny">Funny</button>
+        </div>
+        <div class="view-controls">
+            <button class="view-btn active" id="grid-view"><i class="fas fa-th"></i></button>
+            <button class="view-btn" id="list-view"><i class="fas fa-list"></i></button>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Featured Game Section -->
+        <section class="featured-section">
+            <div class="featured-game">
+                <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Featured Game" class="featured-game-image">
+                <div class="featured-game-info">
+                    <span class="featured-badge">MOST POPULAR</span>
+                    <h2 class="featured-game-title">1v1.LOL</h2>
+                    <p class="featured-game-description">The ultimate 1v1 building and shooting experience. Practice your skills in creative mode or challenge players worldwide in competitive matches. Build, edit, and outplay your opponents in this fast-paced battle game.</p>
+                    <button class="featured-play-btn" data-id="1">
+                        <i class="fas fa-play"></i> Play Now
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Popular Games Section -->
+        <section class="featured-section">
+            <div class="section-header">
+                <h2 class="section-title">Popular Games</h2>
+                <a href="#" class="view-all">View All <i class="fas fa-chevron-right"></i></a>
+            </div>
+            <div class="games-grid" id="games-container">
+                <!-- Game cards will be dynamically inserted here -->
+            </div>
+        </section>
+
+        <!-- New Games Section -->
+        <section class="featured-section">
+            <div class="section-header">
+                <h2 class="section-title">Recently Added</h2>
+                <a href="#" class="view-all">View All <i class="fas fa-chevron-right"></i></a>
+            </div>
+            <div class="games-grid" id="new-games-container">
+                <!-- New game cards will be dynamically inserted here -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Game Modal -->
+    <div class="game-modal" id="game-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modal-title">Game Title</h2>
+                <button class="close-btn" id="close-modal">&times;</button>
+            </div>
+            <iframe class="game-frame" id="game-frame" src="" frameborder="0"></iframe>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Realms</h3>
+                <p>Realms offers the best collection of unblocked browser games that work at school. All games are carefully selected to provide fun and entertainment during breaks.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-gamepad"></i> All Games</a></li>
+                    <li><a href="#"><i class="fas fa-fire"></i> Popular Games</a></li>
+                    <li><a href="#"><i class="fas fa-star"></i> New Games</a></li>
+                    <li><a href="#"><i class="fas fa-trophy"></i> Top Rated</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Categories</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-fist-raised"></i> Shooter</a></li>
+                    <li><a href="#"><i class="fas fa-basketball-ball"></i> Sports</a></li>
+                    <li><a href="#"><i class="fas fa-chess"></i> Strategy</a></li>
+                    <li><a href="#"><i class="fas fa-running"></i> .IO Games</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Support</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-question-circle"></i> Help Center</a></li>
+                    <li><a href="#"><i class="fas fa-envelope"></i> Contact Us</a></li>
+                    <li><a href="#"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+                    <li><a href="#"><i class="fas fa-file-contract"></i> Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Realms &copy; 2023 - All rights reserved | For educational purposes only</p>
+        </div>
+    </footer>
+
+    <script>
+        // Game data with popular school games - all confirmed to work
+        const games = [
+            {
+                id: 1,
+                title: "1v1.LOL",
+                description: "Build, edit, and battle in this competitive 1v1 shooter with building mechanics.",
+                category: "shooter",
+                rating: 4.8,
+                plays: "350K",
+                image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
+                url: "https://1v1.lol/"
+            },
+            {
+                id: 2,
+                title: "Shell Shockers",
+                description: "Multiplayer egg-based shooter with unique characters and fast-paced action.",
+                category: "shooter",
+                rating: 4.7,
+                plays: "280K",
+                image: "https://images.unsplash.com/photo-1551103782-8ab07afd45c1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
+                url: "https://shellshock.io/"
+            },
+            {
+                id: 3,
+                title: "Krunker.io",
+                description: "Fast-paced browser FPS with smooth gameplay and various game modes.",
+                category: "shooter",
+                rating: 4.8,
+                plays: "420K",
+                image: "https://images.unsplash.com/photo-1534423861386-85a16f5d13fd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
+                url: "https://krunker.io/"
+            },
+            {
+                id: 4,
+                title: "Slope",
+                description: "Addictive 3D running game where you control a ball rolling down a slope.",
+                category: "racing",
+                rating: 4.6,
+                plays: "320K",
+                image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
+                url: "https://slope-game.com/"
+            },
+            {
+                id: 5,
+                title: "Moto X3M",
+                description: "Exciting motorcycle racing game with challenging obstacles and physics.",
+                category: "racing",
+                rating: 4.7,
+                plays: "290K",
+                image: "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
+                url: "https://motox3m.pro/"
+            },
+            {
+                id: 6,
+                title: "Paper.io 2",
+                description: "Claim territory and defeat opponents in this popular .io game.",
+                category: "io",
+                rating: 4.5,
+                plays: "260K",
+                image: "https://images.unsplash.com/photo-1612036782180-6f0b6cd846fe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
+                url: "https://paper-io.com/"
+            },
+            {
+                id: 7,
+                title: "Vasketball Bros",
+                description: "Fun basketball game with simple controls and addictive gameplay.",
+                category: "sports",
+                rating: 4.4,
+                plays: "180K",
+                image: "https://images.unsplash.com/photo-1546519638-68e109498ffc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
+                url: "https://vasketballbros.com/"
+            },
+            {
+                id: 8,
+                title: "Basket Random",
+                description: "Randomized basketball game with unpredictable physics and hilarious moments.",
+                category: "sports",
+                rating: 4.6,
+                plays: "220K",
+                image: "https://images.unsplash.com/photo-1575361204480-aadea25e6e68?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
+                url: "https://basketrandom.com/"
+            },
+            {
+                id: 9,
+                title: "Tunnel Rush",
+                description: "Navigate through a twisting tunnel at high speed in this reflex-testing game.",
+                category: "racing",
+                rating: 4.5,
+                plays: "190K",
+                image: "https://images.unsplash.com/photo-1486572788966-cfd3df1f5b42?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
+                url: "https://tunnelrush.com/"
+            },
+            {
+                id: 10,
+                title: "Cookie Clicker",
+                description: "The original idle clicker game. Bake cookies, buy upgrades, and expand your empire.",
+                category: "strategy",
+                rating: 4.7,
+                plays: "380K",
+                image: "https://images.unsplash.com/photo-1558961367-2e837c0a3c0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
+                url: "https://cookieclicker.com/"
+            },
+            {
+                id: 11,
+                title: "Doge Miner",
+                description: "Mine Dogecoins in this fun clicker game with upgrades and achievements.",
+                category: "strategy",
+                rating: 4.3,
+                plays: "150K",
+                image: "https://images.unsplash.com/photo-1516245834210-c4c142787335?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
+                url: "https://dogeminer.com/"
+            },
+            {
+                id: 12,
+                title: "Hole.io",
+                description: "Control a black hole and swallow everything in your path in this addictive game.",
+                category: "io",
+                rating: 4.5,
+                plays: "270K",
+                image: "https://images.unsplash.com/photo-1535223289827-42f1e9919769?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
+                url: "https://hole-io.com/"
+            }
+        ];
+
+        // New games data
+        const newGames = [
+            {
+                id: 13,
+                title: "Retro Bowl",
+                description: "Classic-style football management game with simple controls and deep strategy.",
+                category: "sports",
+                rating: 4.8,
+                plays: "160K",
+                image: "https://images.unsplash.com/photo-1575361204480-aadea25e6e68?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
+                url: "https://retrobowl.com/"
+            },
+            {
+                id: 14,
+                title: "Tiny Fishing",
+                description: "Relaxing fishing game with upgrades and different fish to catch.",
+                category: "puzzle",
+                rating: 4.3,
+                plays: "120K",
+                image: "https://images.unsplash.com/photo-1464207687429-7505649dae38?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
+                url: "https://tinyfishing.com/"
+            },
+            {
+                id: 15,
+                title: "Rooftop Snipers",
+                description: "Hilarious 2-player fighting game on rooftops. Simple controls, crazy fun.",
+                category: "funny",
+                rating: 4.4,
+                plays: "140K",
+                image: "https://images.unsplash.com/photo-1540959733332-8cbd5d1a58de?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
+                url: "https://rooftopsnipers.com/"
+            },
+            {
+                id: 16,
+                title: "Slither.io",
+                description: "Grow the longest snake in this massively multiplayer .io game.",
+                category: "io",
+                rating: 4.6,
+                plays: "450K",
+                image: "https://images.unsplash.com/photo-1577083552431-6e5fd01988a3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
+                url: "https://slither.io/"
+            },
+            {
+                id: 17,
+                title: "Agar.io",
+                description: "The original cell-eating .io game. Eat smaller cells and avoid larger ones.",
+                category: "io",
+                rating: 4.5,
+                plays: "520K",
+                image: "https://images.unsplash.com/photo-1514894780887-121968d00567?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
+                url: "https://agar.io/"
+            },
+            {
+                id: 18,
+                title: "Diep.io",
+                description: "Upgrade your tank and dominate the battlefield in this popular .io game.",
+                category: "io",
+                rating: 4.7,
+                plays: "380K",
+                image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
+                url: "https://diep.io/"
+            },
+            {
+                id: 19,
+                title: "Minecraft Classic",
+                description: "The original browser version of Minecraft. Build and explore freely.",
+                category: "strategy",
+                rating: 4.8,
+                plays: "680K",
+                image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
+                url: "https://classic.minecraft.net/"
+            },
+            {
+                id: 20,
+                title: "Tetris",
+                description: "The timeless puzzle classic. Arrange falling blocks to complete lines.",
+                category: "puzzle",
+                rating: 4.9,
+                plays: "590K",
+                image: "https://images.unsplash.com/photo-1632501641765-e56838a9d6f2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
+                url: "https://tetris.com/play-tetris"
+            },
+            {
+                id: 21,
+                title: "Pac-Man",
+                description: "The classic arcade game. Eat dots and avoid ghosts in the maze.",
+                category: "puzzle",
+                rating: 4.7,
+                plays: "310K",
+                image: "https://images.unsplash.com/photo-1535223289827-42f1e9919769?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
+                url: "https://www.pacman.com/"
+            },
+            {
+                id: 22,
+                title: "Geometry Dash",
+                description: "Rhythm-based platformer with challenging levels and custom music.",
+                category: "puzzle",
+                rating: 4.6,
+                plays: "340K",
+                image: "https://images.unsplash.com/photo-1551103782-8ab07afd45c1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
+                url: "https://geometrydash.io/"
+            },
+            {
+                id: 23,
+                title: "Subway Surfers",
+                description: "Endless runner game where you dash through subway tracks and avoid obstacles.",
+                category: "racing",
+                rating: 4.7,
+                plays: "410K",
+                image: "https://images.unsplash.com/photo-1486572788966-cfd3df1f5b42?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
+                url: "https://subway-surfers.com/"
+            },
+            {
+                id: 24,
+                title: "Stickman Hook",
+                description: "Swing your stickman through challenging levels using a grappling hook.",
+                category: "puzzle",
+                rating: 4.4,
+                plays: "190K",
+                image: "https://images.unsplash.com/photo-1540959733332-8cbd5d1a58de?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
+                url: "https://stickman-hook.com/"
+            }
+        ];
+
+        // DOM Elements
+        const gamesContainer = document.getElementById('games-container');
+        const newGamesContainer = document.getElementById('new-games-container');
+        const searchInput = document.getElementById('search');
+        const categoryButtons = document.querySelectorAll('.category-btn');
+        const gameModal = document.getElementById('game-modal');
+        const gameFrame = document.getElementById('game-frame');
+        const modalTitle = document.getElementById('modal-title');
+        const closeModal = document.getElementById('close-modal');
+        const gridViewBtn = document.getElementById('grid-view');
+        const listViewBtn = document.getElementById('list-view');
+        const featuredPlayBtn = document.querySelector('.featured-play-btn');
+
+        // Initialize the games display
+        function displayGames(gamesToDisplay, container) {
+            container.innerHTML = '';
+            
+            gamesToDisplay.forEach(game => {
+                const gameCard = document.createElement('div');
+                gameCard.className = 'game-card';
+                gameCard.setAttribute('data-category', game.category);
+                
+                // Generate star rating
+                const stars = '★'.repeat(Math.floor(game.rating)) + '☆'.repeat(5 - Math.floor(game.rating));
+                
+                gameCard.innerHTML = `
+                    <img src="${game.image}" alt="${game.title}" class="game-image">
+                    <div class="game-info">
+                        <div class="game-title">
+                            <span>${game.title}</span>
+                            <span class="game-rating">${stars}</span>
+                        </div>
+                        <p class="game-description">${game.description}</p>
+                        <div class="game-meta">
+                            <span class="game-category">${game.category}</span>
+                            <span><i class="fas fa-play-circle"></i> ${game.plays}</span>
+                        </div>
+                        <button class="play-btn" data-id="${game.id}">
+                            <i class="fas fa-play"></i> Play Now
+                        </button>
+                    </div>
+                `;
+                
+                container.appendChild(gameCard);
+            });
+            
+            // Add event listeners to play buttons
+            document.querySelectorAll('.play-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const gameId = parseInt(this.getAttribute('data-id'));
+                    openGame(gameId);
+                });
+            });
+        }
+
+        // Open game in modal
+        function openGame(gameId) {
+            let game = games.find(g => g.id === gameId);
+            if (!game) {
+                game = newGames.find(g => g.id === gameId);
+            }
+            
+            if (game) {
+                modalTitle.textContent = game.title;
+                gameFrame.src = game.url;
+                gameModal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        // Close modal
+        closeModal.addEventListener('click', function() {
+            gameModal.style.display = 'none';
+            gameFrame.src = '';
+            document.body.style.overflow = 'auto';
+        });
+
+        // Close modal when clicking outside the content
+        gameModal.addEventListener('click', function(e) {
+            if (e.target === gameModal) {
+                gameModal.style.display = 'none';
+                gameFrame.src = '';
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Filter games by category
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Update active button
+                categoryButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                
+                const category = this.getAttribute('data-category');
+                filterGames(category);
+            });
+        });
+
+        // Filter games function
+        function filterGames(category) {
+            let filteredGames = games;
+            let filteredNewGames = newGames;
+            
+            if (category !== 'all') {
+                filteredGames = games.filter(game => game.category === category);
+                filteredNewGames = newGames.filter(game => game.category === category);
+            }
+            
+            // Apply search filter if there's a search term
+            const searchTerm = searchInput.value.toLowerCase();
+            if (searchTerm) {
+                filteredGames = filteredGames.filter(game => 
+                    game.title.toLowerCase().includes(searchTerm) || 
+                    game.description.toLowerCase().includes(searchTerm)
+                );
+                filteredNewGames = filteredNewGames.filter(game => 
+                    game.title.toLowerCase().includes(searchTerm) || 
+                    game.description.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            displayGames(filteredGames, gamesContainer);
+            displayGames(filteredNewGames, newGamesContainer);
+        }
+
+        // Search functionality
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const activeCategory = document.querySelector('.category-btn.active').getAttribute('data-category');
+            
+            filterGames(activeCategory);
+        });
+
+        // View controls
+        gridViewBtn.addEventListener('click', function() {
+            gridViewBtn.classList.add('active');
+            listViewBtn.classList.remove('active');
+            gamesContainer.classList.remove('list-view');
+            newGamesContainer.classList.remove('list-view');
+        });
+
+        listViewBtn.addEventListener('click', function() {
+            listViewBtn.classList.add('active');
+            gridViewBtn.classList.remove('active');
+            gamesContainer.classList.add('list-view');
+            newGamesContainer.classList.add('list-view');
+        });
+
+        // Featured game play button
+        featuredPlayBtn.addEventListener('click', function() {
+            const gameId = parseInt(this.getAttribute('data-id'));
+            openGame(gameId);
+        });
+
+        // Initial display of all games
+        displayGames(games, gamesContainer);
+        displayGames(newGames, newGamesContainer);
+    </script>
+</body>
+</html>
